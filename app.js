@@ -7,7 +7,6 @@ var bodyParser = require('body-parser');
 
 var index = require('./routes/index');
 var users = require('./routes/users');
-var socket = require('./routes/module/mod_socket.js');
 
 var app = express();
 
