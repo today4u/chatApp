@@ -17,6 +17,13 @@
 <script>
   $(function () {
     var socket = io();
+    $('#chat').hide();
+    $('#nickname form').submit(function(){
+      socket.emit('enter room',   $('#username').val());
+      $('#chat').show();
+      $('#nickname').hide();
+      return false;
+    });
     $('#chat form').submit(function(){
       socket.emit('chat message', $('#m').val());
       $('#m').val('');
@@ -30,6 +37,11 @@
 </head>
 <body>
   <ul id="messages"></ul>
+  <div id="nickname">
+    <form action="">
+      <input id="username" placeholder="Enter a username" /><button>Entry</button>
+    </form>
+  </div>
   <div id="chat">
     <form action="">
       <input id="m" autocomplete="off"  /><button>Send</button>

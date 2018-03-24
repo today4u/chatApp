@@ -11,13 +11,17 @@ app.get('/', function(req, res){
 io.on('connection', function(socket){
   //入室時
   io.emit('chat message','Someone has entered.');
+  socket.on('enter room', function(username) {
+    users[socket.id] = username;
+    io.emit('chat message', users[socket.id] +' entered.');
+  });
   //chat
   socket.on('chat message', function(msg){
-    io.emit('chat message', msg);
+    io.emit('chat message', users[socket.id]+' : '+msg);
   });
   //退室
   socket.on('disconnect', function() {
-     io.emit('chat message','Someone left the room.');
+     io.emit('chat message', users[socket.id] +' left the room.');
   });
 });
 
